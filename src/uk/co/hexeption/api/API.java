@@ -18,6 +18,8 @@ public class API {
      * 2). Module System.
      * 3). Render Methods. i.e DRAWRECT, DRAWCIRCLE, DRAWHORIZONTALlINE
      * 4). Maths Methods.
+     * 5). Add MC to Module
+     *
      */
 
     //<editor-fold desc="=== Client Info ===">
