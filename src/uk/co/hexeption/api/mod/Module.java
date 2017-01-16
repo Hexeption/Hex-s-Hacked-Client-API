@@ -10,7 +10,7 @@ public abstract class Module {
 
     private String description = getClass().getAnnotation(ModInformation.class).description();
 
-    private Category category = getClass().getClass().getAnnotation(ModInformation.class).category();
+    private Category category = getClass().getAnnotation(ModInformation.class).category();
 
     private boolean visible = getClass().getAnnotation(ModInformation.class).visible();
 
