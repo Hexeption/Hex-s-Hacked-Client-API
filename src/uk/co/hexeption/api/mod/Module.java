@@ -1,5 +1,8 @@
 package uk.co.hexeption.api.mod;
 
+import net.minecraft.client.Minecraft;
+import uk.co.hexeption.api.managers.EventManager;
+
 /**
  * Created by Hexeption on 16/01/2017.
  */
@@ -18,14 +21,19 @@ public abstract class Module {
 
     private boolean enbled = false;
 
+    protected final Minecraft mc = Minecraft.getMinecraft();
+
     public void setEnbled(boolean enbled) {
 
         if (enbled != this.enbled) {
             this.enbled = enbled;
-            if (enbled)
+            if (enbled) {
                 onEnable();
-            else
+                EventManager.register(this);
+            } else {
                 onDisable();
+                EventManager.unregister(this);
+            }
         }
     }
 
