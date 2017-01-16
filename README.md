@@ -1,17 +1,14 @@
 # Hex's-Hacked-Client-API
 An API for hacked clients
 
-## What can it do atm
-
-- Client Branding
-- Event System
-- Module System
-- Command System
-- HWID
-- Logger
-
 ## TODO
 
+- [x] Client Branding
+- [x] Event System
+- [x] Module System
+- [x] Command System
+- [x] HWID
+- [x] Logger
 - [ ] Better Event System
 - [ ] File Manager/Config
 - [ ] Render Methods
