@@ -12,10 +12,10 @@ An API for hacked clients
 
 ## TODO
 
-- [] Better Event System
-- [] File Manager/Config
-- [] Render Methods
-- [] Math Methods
-- [] Plugin Modules 
-- [] Annotation Command
+- [ ] Better Event System
+- [ ] File Manager/Config
+- [ ] Render Methods
+- [ ] Math Methods
+- [ ] Plugin Modules 
+- [ ] Annotation Command
 
