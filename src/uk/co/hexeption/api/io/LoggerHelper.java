@@ -9,11 +9,11 @@ import org.apache.logging.log4j.Logger;
  */
 public final class LoggerHelper {
 
-    private Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger();
 
     private static void log(Level level, Object message) {
 
-        log(level, message);
+        logger.log(level, message);
     }
 
     /**
