@@ -12,12 +12,14 @@ public class API {
     /**
      * Hex's API
      * <p>
-     * 1). Client Branding. i.e CLIENT NAME, CLIENT VERSION, MINECRAFT VERSION, OPTIFINE VERSION, CREATOR, WEBSITE. [x]
-     * 2). Module System. [x]
-     * 3). Render Methods. i.e DRAWRECT, DRAWCIRCLE, DRAWHORIZONTALlINE, [O]
-     * 4). Maths Methods. [O]
-     * 5). Add MC to Module []
-     * 6). TODO: Code a faster EventSystem
+     * TODO:
+     * <p>
+     * 1). Client Branding. i.e CLIENT NAME, CLIENT VERSION, MINECRAFT VERSION, OPTIFINE VERSION, CREATOR, WEBSITE.
+     * 2). Module System.
+     * 3). Render Methods. i.e DRAWRECT, DRAWCIRCLE, DRAWHORIZONTALlINE
+     * 4). Maths Methods.
+     * 5). Add MC to Module
+     *
      */
 
     //<editor-fold desc="=== Client Info ===">
@@ -112,4 +114,10 @@ public class API {
     }
     //</editor-fold>
 
+    //<editor-fold desc="=== Module System ===">
+
+
+
+
+    //</editor-fold>
 }
