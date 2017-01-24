@@ -1,5 +1,7 @@
 package uk.co.hexeption.api.mod;
 
+import uk.co.hexeption.api.managers.EventManager;
+
 /**
  * Created by Hexeption on 16/01/2017.
  */
@@ -22,10 +24,13 @@ public abstract class Module {
 
         if (enbled != this.enbled) {
             this.enbled = enbled;
-            if (enbled)
+            if (enbled) {
                 onEnable();
-            else
+                EventManager.register(this);
+            } else {
                 onDisable();
+                EventManager.unregister(this);
+            }
         }
     }
 
