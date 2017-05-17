@@ -1,7 +1,7 @@
 package uk.co.hexeption.api.managers;
 
 import uk.co.hexeption.api.io.LoggerHelper;
-import uk.co.hexeption.api.mod.Module;
+import uk.co.hexeption.api.mod.Mod;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,24 +13,24 @@ public class ModuleManager {
 
     private static ModuleManager instance;
 
-    private final List<Module> modules;
+    private final List<Mod> mods;
 
     public ModuleManager() {
 
-        modules = new LinkedList<Module>();
+        mods = new LinkedList<Mod>();
 
     }
 
     /**
      * Adds a module/s to the list.
      *
-     * @param modules
+     * @param mods
      */
-    public void addModules(final Module... modules) {
+    public void addModules(final Mod... mods) {
 
-        synchronized (this.modules) {
-            for (final Module module : modules) {
-                this.modules.add(module);
+        synchronized (this.mods) {
+            for (final Mod mod : mods) {
+                this.mods.add(mod);
             }
         }
     }
@@ -38,45 +38,45 @@ public class ModuleManager {
     /**
      * @param clazz
      * @param <T>
-     * @return A Module by a class file
+     * @return A Mod by a class file
      */
-    public <T extends Module> T getModuleByClass(final Class<T> clazz) {
+    public <T extends Mod> T getModuleByClass(final Class<T> clazz) {
 
-        synchronized (this.modules) {
-            for (final Module module : modules) {
-                if (module.getClass().equals(clazz)) {
-                    return (T) module;
+        synchronized (this.mods) {
+            for (final Mod mod : mods) {
+                if (mod.getClass().equals(clazz)) {
+                    return (T) mod;
                 }
             }
         }
 
-        LoggerHelper.warn(String.format("Module %s not found by class, returning null!", clazz.getCanonicalName()));
+        LoggerHelper.warn(String.format("Mod %s not found by class, returning null!", clazz.getCanonicalName()));
         return null;
     }
 
     /**
      * @param name
      * @param <T>
-     * @return A Module by name
+     * @return A Mod by name
      */
-    public <T extends Module> T getModuleByName(final String name) {
+    public <T extends Mod> T getModuleByName(final String name) {
 
-        synchronized (this.modules) {
-            for (final Module module : modules) {
-                if (module.getName().replaceAll(" ", "").toLowerCase().equals(name.toLowerCase())) {
-                    return (T) module;
+        synchronized (this.mods) {
+            for (final Mod mod : mods) {
+                if (mod.getName().replaceAll(" ", "").toLowerCase().equals(name.toLowerCase())) {
+                    return (T) mod;
                 }
             }
         }
 
-        LoggerHelper.warn(String.format("Module %s not found by name, returning null!", name));
+        LoggerHelper.warn(String.format("Mod %s not found by name, returning null!", name));
         return null;
     }
 
-    public List<Module> getModules() {
+    public List<Mod> getMods() {
 
-        synchronized (this.modules) {
-            return modules;
+        synchronized (this.mods) {
+            return mods;
         }
     }
 

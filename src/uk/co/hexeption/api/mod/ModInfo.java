@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
  * Created by Hexeption on 16/01/2017.
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ModInformation {
+public @interface ModInfo {
 
     String name();
 

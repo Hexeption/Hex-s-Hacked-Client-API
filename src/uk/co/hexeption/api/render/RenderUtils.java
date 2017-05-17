@@ -48,6 +48,7 @@ public class RenderUtils {
      * @param startColor
      * @param endColor
      */
+    //TODO:Fix
     public static void drawGradientRect(float x, float y, float width, float height, int startColor, int endColor) {
 
         float startColor_Alpha = (float) (startColor >> 24 & 255) / 255F;
@@ -118,6 +119,7 @@ public class RenderUtils {
      * @param radius
      * @param color
      */
+    //TODO: Fix
     public static void drawCircle(float x, float y, float radius, int color) {
 
         glDisable(GL_TEXTURE_2D);

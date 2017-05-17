@@ -1,24 +1,28 @@
 package uk.co.hexeption.api.mod;
 
+import net.minecraft.client.Minecraft;
+import uk.co.hexeption.api.io.LoggerHelper;
 import uk.co.hexeption.api.managers.EventManager;
 
 /**
  * Created by Hexeption on 16/01/2017.
  */
-public abstract class Module {
+public abstract class Mod {
 
 
-    private String name = getClass().getAnnotation(ModInformation.class).name();
+    public Minecraft mc = Minecraft.getMinecraft();
 
-    private String description = getClass().getAnnotation(ModInformation.class).description();
+    private String name = getClass().getAnnotation(ModInfo.class).name();
 
-    private Category category = getClass().getAnnotation(ModInformation.class).category();
+    private String description = getClass().getAnnotation(ModInfo.class).description();
 
-    private boolean visible = getClass().getAnnotation(ModInformation.class).visible();
+    private Category category = getClass().getAnnotation(ModInfo.class).category();
 
-    private int keyBind = getClass().getAnnotation(ModInformation.class).bind();
+    private boolean visible = getClass().getAnnotation(ModInfo.class).visible();
 
     private boolean enbled = false;
+
+    private int keyBind = getClass().getAnnotation(ModInfo.class).bind();
 
     public void setEnbled(boolean enbled) {
 
@@ -26,9 +30,11 @@ public abstract class Module {
             this.enbled = enbled;
             if (enbled) {
                 onEnable();
+                LoggerHelper.info("Enabled " + this.name);
                 EventManager.register(this);
             } else {
                 onDisable();
+                LoggerHelper.info("Disabled " + this.name);
                 EventManager.unregister(this);
             }
         }
