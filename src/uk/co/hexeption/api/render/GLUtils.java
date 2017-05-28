@@ -2,11 +2,17 @@ package uk.co.hexeption.api.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -88,6 +94,65 @@ public final class GLUtils {
     public static int getScreenHeight() {
 
         return Minecraft.getMinecraft().displayHeight / getScaleFactor();
+    }
+
+    /**
+     * @param filter determines how the texture will interpolate when scaling up / down. <br>
+     *               GL_LINEAR - smoothest <br> GL_NEAREST - most accurate <br>
+     * @param wrap   determines how the UV coordinates outside of the 0.0F ~ 1.0F range will be handled. <br>
+     *               GL_CLAMP_TO_EDGE - samples edge color <br> GL_REPEAT - repeats the texture <br>
+     */
+    public static int applyTexture(int texId, File file, int filter, int wrap) throws IOException {
+
+        applyTexture(texId, ImageIO.read(file), filter, wrap);
+        return texId;
+    }
+
+    /**
+     * @param filter determines how the texture will interpolate when scaling up / down. <br>
+     *               GL_LINEAR - smoothest <br> GL_NEAREST - most accurate <br>
+     * @param wrap   determines how the UV coordinates outside of the 0.0F ~ 1.0F range will be handled. <br>
+     *               GL_CLAMP_TO_EDGE - samples edge color <br> GL_REPEAT - repeats the texture <br>
+     */
+    public static int applyTexture(int texId, BufferedImage image, int filter, int wrap) {
+
+        int[] pixels = new int[image.getWidth() * image.getHeight()];
+        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+
+        ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4);
+
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int pixel = pixels[y * image.getWidth() + x];
+                buffer.put((byte) ((pixel >> 16) & 0xFF));
+                buffer.put((byte) ((pixel >> 8) & 0xFF));
+                buffer.put((byte) (pixel & 0xFF));
+                buffer.put((byte) ((pixel >> 24) & 0xFF));
+            }
+        }
+
+        buffer.flip();
+        applyTexture(texId, image.getWidth(), image.getHeight(), buffer, filter, wrap);
+        return texId;
+    }
+
+    /**
+     * @param filter determines how the texture will interpolate when scaling up / down. <br>
+     *               GL_LINEAR - smoothest <br> GL_NEAREST - most accurate <br>
+     * @param wrap   determines how the UV coordinates outside of the 0.0F ~ 1.0F range will be handled. <br>
+     *               GL_CLAMP_TO_EDGE - samples edge color <br> GL_REPEAT - repeats the texture <br>
+     */
+    public static int applyTexture(int texId, int width, int height, ByteBuffer pixels, int filter, int wrap) {
+
+        glBindTexture(GL_TEXTURE_2D, texId);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        return texId;
     }
 
     public static int genVBO() {
