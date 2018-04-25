@@ -3,7 +3,6 @@ package uk.co.hexeption.api.io;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
 
 /**
  * Created by Hexeption on 16/01/2017.
